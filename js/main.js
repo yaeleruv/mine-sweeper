@@ -172,9 +172,3 @@ function checkGameOver() {
 // function expandShown(board, elCell, i, j); //a part of the bonus
 
 
-
-// function handleKey(ev) {
-//     if (ev.key = 3) {
-//         console.log('key event good!');
-//     }
-// }
