@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mine Sweeper</title>
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+
+<body onload="initGame()">
+    <h1>Mine Sweeper</h1>
+
+    <div class="lvl-buttons">
+        <button type="button" class="lvl-button" onclick="initGame()">Beginner</button>
+        <button type="button" class="lvl-button" onclick="initGame()">Medium</button>
+        <button type="button" class="lvl-button" onclick="initGame()">Expert</button>
+    </div>
+    <div class="timer">
+        <h3>Timer: <span>00:00</span></h3>
+        <!-- <h3 span></h3> -->
+    </div>
+<!--     
+    <table border="1.5" cellpadding="10" class="center">
+        <tbody class="board-container">
+            
+        </tbody>
+    </table> -->
+
+    <button onclick="initGame()">Restart Game</button>
+    <div class="board-container"></div>
+    <script src="js/utils.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
