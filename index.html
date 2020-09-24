@@ -7,32 +7,36 @@
     <meta charset="UTF-8">
     <title>Mine Sweeper</title>
     <link rel="stylesheet" href="css/main.css">
+    <link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet'>
 
 </head>
 
-<body onload="initGame()">
+<body onload="initGame(4)">
     <h1>Mine Sweeper</h1>
-
-    <div class="lvl-buttons">
-        <button type="button" class="lvl-button" onclick="initGame()">Beginner</button>
-        <button type="button" class="lvl-button" onclick="initGame()">Medium</button>
-        <button type="button" class="lvl-button" onclick="initGame()">Expert</button>
-    </div>
     <div class="timer">
-        <h3>Timer: <span>00:00</span></h3>
+        <h3>Timer: <span>0</span></h3>
         <!-- <h3 span></h3> -->
     </div>
-<!--     
+    <div class="score"></div>
+
+    <div class="level-buttons">
+        <button type="button" class="lvl-button" onclick="initGame(4)">Beginner</button>
+        <button type="button" class="lvl-button" onclick="initGame(8)">Medium</button>
+        <button type="button" class="lvl-button" onclick="initGame(12)">Expert</button>
+    </div>
+
+    <!--   
     <table border="1.5" cellpadding="10" class="center">
         <tbody class="board-container">
             
         </tbody>
-    </table> -->
+    </table>  -->
 
-    <button onclick="initGame()">Restart Game</button>
+    <button onclick="initGame(4)">Restart Game</button>
     <div class="board-container"></div>
     <script src="js/utils.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/mines.js"></script>
 </body>
 
 </html>
