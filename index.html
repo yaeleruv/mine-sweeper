@@ -5,38 +5,45 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Mine Sweeper</title>
+    <title>Minesweeper</title>
     <link rel="stylesheet" href="css/main.css">
     <link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet'>
 
 </head>
 
 <body onload="initGame(4)">
-    <h1>Mine Sweeper</h1>
-    <div class="timer">
-        <h3>Timer: <span>0</span></h3>
-        <!-- <h3 span></h3> -->
-    </div>
-    <div class="score"></div>
+    <style>
+        #grad1 {
+            height: 50px;
+            background-image: linear-gradient(to right, lightseagreen, yellow);
+        }
+    </style>
+    <div id="grad1"></div>
 
+    <h1>MinesweepeR</h1>
+    <h2 class="time"> Time: <label id="minutes">00</label>:<label id="seconds">00</label>
+    </h2>
+    <h3 class="lives"> Lives: <label id="lives">3</label></h3>
+    <h3 class="messages"><label id="messages"></label></h3>
+    
     <div class="level-buttons">
         <button type="button" class="lvl-button" onclick="initGame(4)">Beginner</button>
         <button type="button" class="lvl-button" onclick="initGame(8)">Medium</button>
         <button type="button" class="lvl-button" onclick="initGame(12)">Expert</button>
+
     </div>
 
-    <!--   
-    <table border="1.5" cellpadding="10" class="center">
-        <tbody class="board-container">
-            
-        </tbody>
-    </table>  -->
-
-    <button onclick="initGame(4)">Restart Game</button>
+    <div class="restart-game">
+        <button type="button" onclick="initGame(4)">😊</button>
+    </div>
+    
     <div class="board-container"></div>
+
     <script src="js/utils.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/mines.js"></script>
+    <script src="js/neighbors and mines.js"></script>
+
+
 </body>
 
 </html>

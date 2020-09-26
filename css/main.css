@@ -1,72 +1,31 @@
-/* body {
-    background-color: khaki; 
-    color: darkmagenta;
-    font-size: large;
-    text-align: center;
-    font-family: sans-serif;
-} */
-
 body {
-    background-color: black;
-    color: yellow;
+    background-color: lightseagreen;
+    color: black;
     margin: 0 auto;
     text-align: center;
     font-family: 'Audiowide';
     font-size: 15px;
 }
 
-
 .board-container {
     margin: 0 auto;
     text-align: center;
+    cursor: pointer;
+}
+
+.board-container td:hover {
+    background-color: lightcoral;
+}
+
+
+.board td:hover {
+    background-color: rgb(250, 144, 102);
 }
 
 table {
-    background-color: tomato;
+    background-color: turquoise;
     margin: auto;
 }
-
-.cell{
-    width: 20px;
-    height: 20px;
-    border: 1px solid black;
-    background-color: burlywood;
-}
-
-.cell-clicked {
-    background-color: rgb(204, 80, 204);
-}
-
-.cell > span {
-    display: none;
-    
-}
-
-
-.level-buttons {
-    background-color: #8957c2;
-    border: 1px solid #18ab29;
-    display: inline-block;
-    cursor: pointer;
-    font-family: Arial;
-    font-size: 15px;
-    padding: 10px 10px;
-    text-shadow: 0px 1px 0px #2f6627;
-}
-
-.center {
-    margin: 20px auto;
-    /* margin-top: 200px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px; */
-}
-
-h1 {
-    text-align: center;
-    font-size: 45px;
-}
-
 
 .table td {
     font-size: 20px;
@@ -75,17 +34,63 @@ h1 {
     height: 30px;
     text-align: center;
     transition: .5s;
-    /* background-color: rgb(235, 186, 113); */
 }
 
-.board td:hover {
-    background-color: rgb(250, 144, 102);
+
+.cell {
+    border: 1px solid black;
+    background-color: khaki;
+    width: 25px;
+    height: 25px;
+    padding: 0;
 }
 
-/* 
-.center {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 45px;
-    border-color: black
-} */
+.cell-clicked {
+    background-color: rgb(204, 80, 204);
+}
+
+.cell>span {
+    display: none;
+    height: 25px;
+    line-height: 26px;
+}
+
+.level-buttons {
+    background-color: yellow;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 25%;
+    margin: 0 auto;
+}
+
+.restart-game>button {
+    text-align: center;
+    background-color: lightseagreen;
+    border-radius: 10px;
+    border: none;
+    padding: 5px;
+    text-align: center;
+    display: inline-block;
+    font-size: 20px;
+    cursor: pointer;
+    width: 5%;
+    margin: 0 auto;
+}
+
+
+h1 {
+    text-align: center;
+    font-size: 45px;
+    margin: 10px;
+}
+
+h2, h3 {
+    margin: 10px;
+}
