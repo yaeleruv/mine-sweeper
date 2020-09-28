@@ -1,4 +1,5 @@
 'use strict';
+
 const FLAG = '🚩';
 const MINE = '💣';
 const HAPPY = '😊';
@@ -44,6 +45,7 @@ function initGame(size) {
     setTime();
     setEmoji(HAPPY);
     setLives(gGame.lives);
+    setMessage('');
     clearInterval(gTimeInterval);
 }
 
@@ -58,6 +60,11 @@ function setEmoji(emoji) {
 }
 
 
+function setMessage(messages) {
+    document.querySelector('.messages').innerText = messages;
+}
+
+//בניית הלוח
 function buildBoard() {
     var board = [];
     for (var i = 0; i < gLevel.size; i++) {
@@ -72,7 +79,6 @@ function buildBoard() {
         }
 
     }
-    // console.table('board:', board);
     return board;
 }
 
@@ -104,10 +110,12 @@ function renderCell(i, j) {
 }
 
 
+//התנהגות בלחיצה על התאים
 function cellClicked(elCell, i, j) {
     if (gGame.isOver) {
         return;
     }
+    
     if (!gGame.isOn) {
         posMinesRandomly(i, j);
         setMinesNegsCount(gBoard);
@@ -127,6 +135,12 @@ function cellClicked(elCell, i, j) {
         gGame.lives--;
         gGame.mines--;
         setLives(gGame.lives);
+        if (gGame.lives === 2) {
+            setMessage('Be careful, you have 2 more lives');
+        }
+        if (gGame.lives === 1) {
+            setMessage('Be careful, you have 1 more lives');
+        }
         if (gGame.lives === 0) {
             gameOver();
         }
@@ -144,6 +158,7 @@ function revealCell(elSpan) {
     elSpan.style.display = 'block';
     elSpan.style.backgroundColor = "white";
 }
+
 
 
 function cellMarked(elCell, i, j) {
@@ -167,6 +182,10 @@ function cellMarked(elCell, i, j) {
         gBoard[i][j].isMarked = true;
         elCell.innerText = FLAG;
         gGame.markedCount++;
+        if (gBoard[i][j].isMarked === gGame.isMine) {
+            gGame.mines--;
+        }
+
     } else {
         gBoard[i][j].isMarked = false;
         gGame.markedCount--;
@@ -177,6 +196,8 @@ function cellMarked(elCell, i, j) {
 }
 
 
+
+//תנאים לניצחון//
 function checkVictory() {
 
     var totalCells = gLevel.size * gLevel.size;
@@ -189,11 +210,12 @@ function checkVictory() {
         gGame.isOver = true;
         setEmoji(WIN);
         clearInterval(gTimeInterval);
+        setMessage('You Win!!!');
     }
+}
 
-}//add a victorius massege to the user
 
-
+//ספירת התאים החשופים
 function calcShown() {
     var shownCount = 0;
     for (var i = 0; i < gBoard.length; i++) {
@@ -247,6 +269,7 @@ function gameOver() {
 
 
                 setEmoji(SAD);
+                setMessage('Ohh, try again');
             }
         }
     }

@@ -17,11 +17,6 @@ body {
     background-color: lightcoral;
 }
 
-
-.board td:hover {
-    background-color: rgb(250, 144, 102);
-}
-
 table {
     background-color: turquoise;
     margin: auto;
@@ -36,6 +31,13 @@ table {
     transition: .5s;
 }
 
+.messages {
+    font-family: 'Audiowide';
+    margin: 20px;
+    color:black;
+    font-size: 30px;
+    font-weight: bold;
+} 
 
 .cell {
     border: 1px solid black;
@@ -84,7 +86,6 @@ table {
     margin: 0 auto;
 }
 
-
 h1 {
     text-align: center;
     font-size: 45px;
@@ -94,3 +95,8 @@ h1 {
 h2, h3 {
     margin: 10px;
 }
+
+/* 
+.board td:hover {
+    background-color: rgb(250, 144, 102);
+} */
