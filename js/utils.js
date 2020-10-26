@@ -11,48 +11,24 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-var gTotalSeconds;
+
+
+var gTotalSeconds = 0;
+var gElSec = document.querySelector('.seconds');
+var gElMin = document.querySelector('.minutes');
 
 function setTime() {
-    var minutesLabel = document.getElementById('minutes');
-    var secondsLabel = document.getElementById('seconds');
     gTotalSeconds++;
-    secondsLabel.innerHTML = time(gTotalSeconds % 60);
-    minutesLabel.innerHTML = time(parseInt(gTotalSeconds / 60));
+    gElSec.innerText = formatTime(gTotalSeconds % 60);
+    gElMin.innerText = formatTime(parseInt(gTotalSeconds / 60));
 }
 
 
-function time(val) {
-    var valString = val + '';
+function formatTime(val) {
+    var valString = val.toString();
     if (valString.length < 2) {
         return '0' + valString;
     } else {
         return valString;
     }
 }
-
-
-// if(gGame.isFirst){
-//     var currCell = !gGame.isMine; 
-//  }
-
-
-
-
-
-// if (currCell.isMine) {
-//     str.innerText = MINE;
-//     currCell.isShown = true;
-//     GameOver();
-//   } else {
-//     str.innerText = neighbors;
-//     gBoard[i][j].isShown = true;
-//     expandShown(gBoard, currCell, i, j); 
-//     renderBoard(gBoard);
-//     var elBtn = document.querySelector('.newGame');
-//     elBtn.innerText = AFRAID;
-//     setTimeout(function () {
-//       elBtn.innerText = HAPPY;
-//     }, 150);
-//     renderBoard(gBoard); 
-// }

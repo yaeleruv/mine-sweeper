@@ -14,7 +14,7 @@ body {
 }
 
 .board-container td:hover {
-    background-color: lightcoral;
+    background-color: rgb(138, 218, 72);
 }
 
 table {
@@ -46,10 +46,10 @@ table {
     height: 25px;
     padding: 0;
 }
-
+/* 
 .cell-clicked {
     background-color: rgb(204, 80, 204);
-}
+} */
 
 .cell>span {
     display: none;
@@ -86,6 +86,7 @@ table {
     margin: 0 auto;
 }
 
+/* how to set the h1 header in a higher position in the DOM */
 h1 {
     text-align: center;
     font-size: 45px;
@@ -94,6 +95,11 @@ h1 {
 
 h2, h3 {
     margin: 10px;
+}
+
+.grad {
+    height: 50px;
+    background-image: linear-gradient(to right, lightseagreen, yellow);
 }
 
 /* 

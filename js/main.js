@@ -6,52 +6,38 @@ const HAPPY = '😊';
 const WIN = '😃';
 const SAD = '😩'; //lose after using lives
 
-var gLives;
 var gLevel = {
     size: 4,
     mines: 2
 };
 
-var gGame = {
-    isOn: false,
-    isOver: false,
-    shownCount: 0,
-    markedCount: 0,
-    secsPassed: 0,
-    lives: 3,
-    mines: 0,
-};
-
+var gGame;
 var gBoard;
 var gTimeInterval;
-var gTotalSeconds = -1;
 
-function initGame(size) {
+
+function initGame(size = gLevel.size) {
+    gLevel.size = size;
+
     gGame = {
-        isOn: false,
-        isOver: false,
+        isOn: true,
         shownCount: 0,
         markedCount: 0,
         secsPassed: 0,
-        lives: 3,
+        lives: gLevel.size === 4 ? 2 : 3, //if gLevel.size===4, set 2 lives, else, set 3 lives.
+        isFirstClick: true
     };
-    gLevel.size = size;
     setMinesDifficulty();
     gBoard = buildBoard();
     renderBoard(gBoard);
-    gGame.isOn = false;
-    gGame.isOver = false;
-    gTotalSeconds = -1;
-    setTime();
     setEmoji(HAPPY);
     setLives(gGame.lives);
     setMessage('');
-    clearInterval(gTimeInterval);
 }
 
 
 function setLives(lives) {
-    document.querySelector('#lives').innerText = lives;
+    document.querySelector('.lives').innerText = lives;
 }
 
 
@@ -62,6 +48,15 @@ function setEmoji(emoji) {
 
 function setMessage(messages) {
     document.querySelector('.messages').innerText = messages;
+}
+
+//first clearInterval
+//then initiate the gTotalSeconds to 0;
+//then start the interval
+function startTimer() {
+    clearInterval(gTimeInterval);
+    gTotalSeconds = 0;
+    gTimeInterval = setInterval(setTime, 1000);
 }
 
 //בניית הלוח
@@ -83,7 +78,6 @@ function buildBoard() {
 }
 
 
-
 function renderBoard(board) {
     var strHTML = `<table border="0"><tbody>`;
     for (var i = 0; i < board.length; i++) {
@@ -99,11 +93,13 @@ function renderBoard(board) {
 }
 
 
+
 function renderCell(i, j) {
     var cell = gBoard[i][j];
     var cellValue = (cell.isMine) ? MINE : cell.minesAroundCount;
 
     var className = `cell cell${i}-${j}`;
+    // console.log(className);
     return `<td onclick="cellClicked(this,${i},${j})" oncontextmenu="cellMarked(this,${i},${j}); return false;"
             class="${className}" > <span>${cellValue !== 0 && cellValue || ' '}</span></td>`;
 
@@ -112,19 +108,20 @@ function renderCell(i, j) {
 
 //התנהגות בלחיצה על התאים
 function cellClicked(elCell, i, j) {
-    if (gGame.isOver) {
+    if (!gGame.isOn) {
         return;
     }
-    
-    if (!gGame.isOn) {
+
+    if (gGame.isFirstClick) {
         posMinesRandomly(i, j);
         setMinesNegsCount(gBoard);
         renderBoard(gBoard);
-        gTimeInterval = setInterval(setTime, 1000);
-        gGame.isOn = true;
+        startTimer();
+        gGame.isFirstClick = false;
     }
 
     var elSpan = document.querySelector(`.cell${i}-${j} span`);
+    // console.log(elSpan);
     revealCell(elSpan);
     if (gBoard[i][j].minesAroundCount === 0) {
         expandShown(gBoard, elCell, i, j);
@@ -160,18 +157,18 @@ function revealCell(elSpan) {
 }
 
 
-
+//--------------------------------
 function cellMarked(elCell, i, j) {
-    if (gGame.isOver) {
+    if (!gGame.isOn) {
         return;
     }
 
-    if (!gGame.isOn) {
+    if (gGame.isFirstClick) {
         posMinesRandomly(i, j);
         setMinesNegsCount(gBoard);
         renderBoard(gBoard);
-        gTimeInterval = setInterval(setTime, 1000);
-        gGame.isOn = true;
+        startTimer();
+        gGame.isFirstClick = true;
     }
 
     if (gBoard[i][j].isShown) {
@@ -200,14 +197,14 @@ function cellMarked(elCell, i, j) {
 //תנאים לניצחון//
 function checkVictory() {
 
-    var totalCells = gLevel.size * gLevel.size;
-    var nonMinesCells = totalCells - gGame.mines;
-    var minesMarkedDiff = gGame.mines - gGame.markedCount;
+    var totalCells = gLevel.size * gLevel.size; // כלל התאים = גודל המשחק לפי רמת הקושי בחזקת 2
+    var nonMinesCells = totalCells - gGame.mines; // תאים שהם לא מוקשים = כלל התאים - תאים מוקשים
+    var minesMarkedDiff = gGame.mines - gGame.markedCount;// הפרש המוקשים שסומנו = תאים מוקשים - ספירת התאים שסומנו
     gGame.shownCount = calcShown();
-    var hiddenCells = nonMinesCells - gGame.shownCount;
+    var hiddenCells = nonMinesCells - gGame.shownCount; //תאים לא חשופים = תאים שהם לא מוקשים - ספירת התאים החשופים
     if (hiddenCells === 0 && minesMarkedDiff === 0) {
         gGame.isOn = false;
-        gGame.isOver = true;
+        // gGame.isOver = true;
         setEmoji(WIN);
         clearInterval(gTimeInterval);
         setMessage('You Win!!!');
@@ -257,7 +254,6 @@ function expandShown(board, elCell, i, j) {
 
 function gameOver() {
     gGame.isOn = false;
-    gGame.isOver = true;
     clearInterval(gTimeInterval);
 
     for (var i = 0; i < gBoard.length; i++) {
@@ -266,7 +262,6 @@ function gameOver() {
             if (currCell.isMine) {
                 var elSpan = document.querySelector(`.cell${i}-${j} span`);
                 revealCell(elSpan);
-
 
                 setEmoji(SAD);
                 setMessage('Ohh, try again');
